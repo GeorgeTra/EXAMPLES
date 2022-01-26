@@ -1,4 +1,5 @@
-﻿// 56. Написать программу, которая обменивает элементы первой строки и последней строки.
+﻿// 57. Написать программу упорядочивания по убыванию элементов каждой строки двумерного массива.
+
 
 void FillTwoDimensionalArray(int[,] array, int minNumber, int maxNumber)
 {  
@@ -29,20 +30,33 @@ void PrintTwoDimensionalArray(int[,] array)
          Console.WriteLine();
 }
 
-void ChangeFirstWithLast(int[,] array)
+void SortRow(int[,] array, int indexRow)
 {
-    int indexLast = array.GetLength(0) - 1;
     for (int j = 0; j < array.GetLength(1); j++)
     {
-        int temp = array[0, j];
-        array[0, j] = array[indexLast, j];
-        array[indexLast, j] = temp;
+        for (int k = 0; k < array.GetLength(1) - 1 - j; k++)
+        {
+            if (array[indexRow, k] < array[indexRow, k + 1])
+            {
+                int temp = array[indexRow, k];
+                array[indexRow, k] = array[indexRow, k + 1];
+                array[indexRow, k + 1] = temp;
+            }
+        }
     }
 }
 
-int[,] workArray = new int[4, 4];
+void SortArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        SortRow(array, i);
+    } 
+}
+
+int[,] workArray = new int[6, 7];
 
 FillTwoDimensionalArray(workArray, 0, 9);
 PrintTwoDimensionalArray(workArray);
-ChangeFirstWithLast(workArray);
+SortArray(workArray);
 PrintTwoDimensionalArray(workArray);
