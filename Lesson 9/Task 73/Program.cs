@@ -6,16 +6,18 @@ int EnterInt(string Text)  // Эта функция печатает в конс
 // число, введенное пользователем.
 {
     Console.Write(Text);
-    int Number = convert.ToInt32(Console.ReadLine());
+    int Number = Convert.ToInt32(Console.ReadLine());
     return Number;
 }
 
-int startFirst = EnterInt("Введите первое число: ")
-int startSecond = EnterInt("Введите второе число: ")
-
 string StringNumbers (int startFirst, int startSecond, int count)
 {
-    if()
-    return $"{startFirst} {startSecond} {StringNumbers(startSecond, 
-    startFirst + startSecond";
+    if(count == 0) return String.Empty;
+    count--;
+    return $"{startFirst} {StringNumbers(startSecond, startFirst + startSecond, count)}";
 }
+
+int startFirst = EnterInt("Введите первое число: ");
+int startSecond = EnterInt("Введите второе число: ");
+string sum = StringNumbers(startFirst, startSecond, 10);
+Console.WriteLine(sum);
