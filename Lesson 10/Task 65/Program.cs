@@ -11,47 +11,69 @@ void PrintTwoDimensionalArray(int[,] array)
     Console.Write("\t");
     for (int j = 0; j < array.GetLength(1); j++) Console.Write($"{j}\t");
     Console.WriteLine();
-    for (int i = 0; i < array.GetLength(0); i++) 
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        Console.Write($"{i}\t");
+        for (int j = 0; j < array.GetLength(1); j++)
         {
-            Console.Write($"{i}\t");
-            for (int j = 0; j < array.GetLength(1); j++)
-            {
-                Console.Write($"{array[i, j]}\t");
-            }
-            Console.WriteLine();
-        }  
-         Console.WriteLine();
+            Console.Write($"{array[i, j]}\t");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
 }
 
-void FillHorizontalLine(int[,] array, int index, int start, int end, int direction)
+void FillToRight(int[,] array, int index, int start, int end)
 {
-    for (int i = start; i < end; i += direction)
+    for (int i = start; i <= end; i++)
     {
         array[index, i] = currentElement++;
     }
 }
 
-void FillVerticalLine(int[,] array, int index, int start, int end, int direction)
+void FillToDown(int[,] array, int index, int start, int end)
 {
-    for (int i = start; i < end; i += direction)
+    for (int i = start; i <= end; i++)
+    {
+        array[i, index] = currentElement++;
+    }
+}
+
+void FillToLeft(int[,] array, int index, int start, int end)
+{
+    for (int i = start; i >= end; i--)
     {
         array[index, i] = currentElement++;
+    }
+}
+
+void FillToUp(int[,] array, int index, int start, int end)
+{
+    for (int i = start; i >= end; i--)
+    {
+        array[i, index] = currentElement++;
     }
 }
 
 void SpiralFillArray(int[,] array)
 {
-    int count = 1;
+    // int count = 1;
     int curRowIndex = 0;
     int startRowIndex = 0;
-    int endRowIndex = array.GetLength(1);
-    int direction = 1;
-    // while (currentElement < array.GetLength(0) * array.GetLength(1))
+    int endRowIndex = array.GetLength(1) - 1;
+    int startColumnIndex = 0;
+    int endColumnIndex = array.GetLength(0) - 1;
+    int curColumnIndex = endColumnIndex;
+    while (currentElement < array.GetLength(0) * array.GetLength(1))
     {
-        FillHorizontalLine(array, curRowIndex, startRowIndex, endRowIndex, direction);
+        FillToRight(array, startRowIndex, startColumnIndex, endColumnIndex);
         startRowIndex++;
-        FillVerticalLine(array, endRowIndex - 1, startRowIndex, endRowIndex, direction);
-        FillHorizontalLine(array, endRowIndex, endRowIndex - 1, startRowIndex, direction*(-1));
+        FillToDown(array, endColumnIndex, startRowIndex, endRowIndex);
+        endColumnIndex--;
+        FillToLeft(array, endRowIndex, endColumnIndex, startColumnIndex);
+        endRowIndex--;
+        FillToUp(array, startColumnIndex, endRowIndex, startRowIndex);
+        startColumnIndex++;
     }
 }
 
