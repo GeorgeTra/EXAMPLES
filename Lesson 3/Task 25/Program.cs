@@ -11,10 +11,7 @@ int Sum1(int a) // циклом
     return s;
 }
 
-int Sum2(int a) // математикой
-{
-    return (a * (a + 1) / 2);
-}
+int Sum2(int a) {return (a * (a + 1) / 2);}  // математикой
 
 int Sum3(int a) // рекурсией
 {
